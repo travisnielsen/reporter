@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { MsalProvider } from "@azure/msal-react";
+import { IPublicClientApplication } from "@azure/msal-browser";
+import { TopNav } from './components/TopNav';
 
-function App() {
-  const [count, setCount] = useState(0)
+type AppProps = {
+  pca: IPublicClientApplication;
+};
+
+const App = ({ pca }: AppProps) => {
 
   return (
-    <>
+    <MsalProvider instance={pca}>
+
+      <TopNav />
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Hello, world!</h1>
+        <p>Welcome to your new single-page application, built with:</p>
+        <ul>
+          <li><a href="https://reactjs.org" target="_blank">React</a></li>
+          <li><a href="https://getbootstrap.com" target="_blank">Bootstrap</a></li>
+          <li><a href="https://azure.microsoft.com/en-us/services/active-directory/develop/msal/overview" target="_blank">MSAL</a></li>
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      
+    </MsalProvider>
+  );
 }
 
 export default App
